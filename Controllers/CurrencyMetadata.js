@@ -13,14 +13,14 @@ module.exports = (currencyApp, knex, axios, CircularJSON)=>{
             var myfunc = setInterval(function(){
                 knex('Currencies').insert(whole_data.data[i])
                     .then((data)=>{
-                        console.log(i,"Data insert Successfully...")
+                        /*Pass*/ 
                     }).catch((err)=>{
                         console.log(err.message)
                     })
-
+                    console.log(i+1,"Data insert Successfully...")
                     i = i + 1;
 
-                if(i==whole_data.data.length-1) {
+                if(i==whole_data.data.length) {
                     clearInterval(myfunc);
                 }
 
@@ -32,7 +32,7 @@ module.exports = (currencyApp, knex, axios, CircularJSON)=>{
         });
     })
 
-    currencyApp.get("/currencise_all_data",(req,res)=>{
+    currencyApp.get("/currencise_get_all_data",(req,res)=>{
         knex.select('*').from('Currencies').then((data)=>{
             console.log(data.length)
             var count = 0
@@ -56,7 +56,7 @@ module.exports = (currencyApp, knex, axios, CircularJSON)=>{
                 console.log(new_list[i]); 
                 i = i + 1;
 
-                if(i==data.length-1) {
+                if(i==data.length) {
                     clearInterval(myfunc);
                 }
 
